@@ -1,15 +1,27 @@
 import React, {Component} from 'react';
 import './App.css';
 import PropTypes from 'prop-types';
-import App3 from './App3';
+import Child from './Child';
+import ChildToParent from './ChildToParent';
 
-class App2 extends Component {
+class Parent extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            key1 : props.defaultKey1
+        };
+    }
+    funcToChild(arg1) {
+        this.setState((preState, props) => {preState.key1 = arg1; return preState;});
+    }
     render() {
 
       const data = {'ee':'ee_val', 'ff':'ff_val'};
 
       return (
          <div>
+            <div>-----------------Parent----------------------</div>
+            <div className="App">{this.state.key1}</div>
             <div className="App">
               {this.props.name}
             </div>
@@ -29,22 +41,24 @@ class App2 extends Component {
               {this.props.children}
             </div>
             <div className="App">
-                <App3 {...data}>
+                <Child {...data}>
                     <div>child3</div>
                     <div>child4</div>
-                </App3>
+                </Child>
             </div>
+            <ChildToParent onUpdate={this.funcToChild.bind(this)}/>
+            <div>-------------------Parent--------------------</div>
          </div>
       );
   }
 }
 
-App2.propTypes = {
+Parent.propTypes = {
     name: PropTypes.string
 };
 
-App2.defaultProps = {
+Parent.defaultProps = {
     name: 'デフォルト値'
 };
 
-export default App2;
+export default Parent;

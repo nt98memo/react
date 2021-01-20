@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import './App.css';
 
-class App3 extends Component {
+class Child extends Component {
     render() {
       return (
          <div>
+            <div>-----------------Child----------------------</div>
             <div className="App">
               {this.props.ee}
             </div>
@@ -14,9 +15,10 @@ class App3 extends Component {
             <div className="App">
               {this.props.children}
             </div>
+            <div>-----------------Child----------------------</div>
          </div>
       );
   }
 }
 
-export default App3;
+export default Child;
